@@ -1,0 +1,61 @@
+.card-body{
+    height: 150px;
+}
+
+.trash-icon > form > button{
+    background-color: transparent;
+    border: none;
+}
+
+.trash-icon > form > button {
+    background-color: transparent;
+    border: none;
+}
+
+.trash-icon > form > button > .fa-trash{
+    color: rgb(171, 4, 4);
+}
+
+.pen-icon > a{
+    color: rgb(83, 83, 83);
+}
+
+.pen-icon > a:hover{
+    color: rgb(62, 62, 62);
+}
+
+.form-auth-register{
+    position: relative;
+    width: 32em;
+    left: 50%;
+    background-color: rgba(240, 248, 255, 0.509);
+    padding: 16px;
+    border-radius: 10px;
+    transform: translateX(-50%);
+}
+
+@media(max-width: 530px){
+    .form-auth-register{
+        width: 26em;
+        transition: 0.6s;
+    }
+}
+
+@media(max-width: 420px){
+    .form-auth-register{
+        width: 22em;
+        transition: 0.6s;
+    }
+}
+
+@media(max-width: 355px){
+    .form-auth-register{
+        width: 20em;
+        transition: 0.6s;
+    }
+}
+
+.btn-flex{
+    display: flex;
+    flex-direction: row;
+}
