@@ -16,7 +16,7 @@ return [
     */
 
     //estabelece no tipo de conexão
-    'default' => env('DB_CONNECTION', 'mysql'), 
+    'default' => env('DB_CONNECTION', 'sqlite'), 
 
     /*
     |--------------------------------------------------------------------------

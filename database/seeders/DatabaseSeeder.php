@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Livro;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +27,9 @@ class DatabaseSeeder extends Seeder
             'cpf' => '12345678',
             'telefone' => '849128129'
         ]);
-        // \App\Models\User::factory(10)->create();
+
+        \App\Models\User::factory(10)->create();
+        \App\Models\Livro::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
