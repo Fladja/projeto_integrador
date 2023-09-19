@@ -44,15 +44,15 @@ class ComputadoresController extends Controller
             return redirect('computadores');
         }
         $validator = Validator::make($request->all(), [
-            'identificacao' => 'required|max:191',
+            'identificacao_comp' => 'required|max:191',
         ]);
  
-        if ($validator->fails()) {
-            return redirect('computador-create');
-        }
+        // if ($validator->fails()) {
+        //     return redirect('computador-create');
+        // }
 
         $computador = Computadore::create([
-            'identificacao_comp' => $request->identificacao,
+            'identificacao_comp' => $request->identificacao_comp,
         ]);
         
         return redirect('computadores');
@@ -108,7 +108,7 @@ class ComputadoresController extends Controller
         }
 
         $computador = Computadore::find($id);
-        $computador->identificacao_comp = $request->identificacao;
+        $computador->identificacao_comp = $request->identificacao_comp;
         $computador->save();
         return redirect('computadores');
     }
@@ -119,16 +119,16 @@ class ComputadoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+
+
+    public function destroy(Request $request)
     {
         if(!(auth()->user()->tipo == 0)){
             return redirect('computadores');
         }
-        $computador = Computadore::find($id);
-        if($computador === null){
-            return redirect('computadores');
-        }
-        $computador->delete();
+
+        Computadore::find($request->id)->delete();
         return redirect('computadores');
     }
 }

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Computadore extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'identificacao_comp',
     ];
     
-    use HasFactory;
 }

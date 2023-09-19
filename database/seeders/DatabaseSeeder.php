@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
             'telefone' => '849128129'
         ]);
 
-        \App\Models\User::factory(10)->create();
-        \App\Models\Livro::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
+        // \App\Models\Livro::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

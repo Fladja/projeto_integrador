@@ -43,17 +43,17 @@ class LivrosController extends Controller
         if(!(auth()->user()->tipo == 0)){
             return redirect('livros');
         }
-        $validator = Validator::make($request->all(), [
-            'nome' => 'required|unique:livros|max:45',
-            'autor' => 'required|max:45',
-            'publicacao' => 'required|date',
-            'genero' => 'required|max:45',
-            'categoria' => 'required|max:45',
-        ]);
- 
-        if ($validator->fails()) {
-            return redirect('livros-create');
-        }
+        // $validator = Validator::make($request->all(), [
+        //     'nome' => 'required|max:45',
+        //     'autor' => 'required|max:45',
+        //     'publicacao' => 'required|date',
+        //     'genero' => 'required|max:45',
+        //     'categoria' => 'required|max:45',
+        // ]);
+    
+        // if ($validator->fails()==false) {
+        //     return redirect('livros');
+        // }
 
         $livro = Livro::create([
             'nome' => $request->nome,
@@ -63,7 +63,7 @@ class LivrosController extends Controller
             'categoria' => $request->categoria
         ]);
         
-        return redirect('livros');
+        return redirect('/livros');
     }
 
     /**
@@ -115,9 +115,9 @@ class LivrosController extends Controller
             'categoria' => 'required|string|max:45',
         ]);
  
-        if ($validator->fails()) {
-            return redirect('livros');
-        }
+        // if ($validator->fails()) {
+        //     return redirect('livros');
+        // }
 
         $livro = Livro::find($id);
         $livro->nome = $request->nome;
@@ -141,6 +141,7 @@ class LivrosController extends Controller
         if(!(auth()->user()->tipo == 0)){
             return redirect('livros');
         }
+
         $livro = Livro::find($id);
         if($livro === null){
             return redirect('livros');

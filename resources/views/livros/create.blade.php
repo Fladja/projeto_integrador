@@ -8,7 +8,7 @@ Adicionar Livro
     @include('layouts.navbar')
     <h1 class="text-center">Adicionar Livro</h1>
 
-    <form action="{{route('livros-store')}}" method="post">
+    <form action="{{url('/livros/create')}}" method="post">
         @csrf
         <label class="mt-2" for="nome">Titulo</label>
         <input class="form-control" type="text" name="nome" id="nome" placeholder="Titulo do Livro" required>
