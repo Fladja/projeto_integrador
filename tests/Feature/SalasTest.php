@@ -144,48 +144,48 @@ class SalasTest extends TestCase
 // ----------------------------------------------------------------------
 
 
-public function test_AtualizarSalas() //-- OK
-{
-   /*
-   /-------------------------------------------------------------
-   /Este teste avalia a atualização de salas;
-   /-------------------------------------------------------------
-   */
+    public function test_AtualizarSalas() //-- OK
+    {
+    /*
+    /-------------------------------------------------------------
+    /Este teste avalia a atualização de salas;
+    /-------------------------------------------------------------
+    */
 
-   //criando um usuário falso
-   $user = User::factory()->create();
+    //criando um usuário falso
+    $user = User::factory()->create();
 
-   //passando dados falsos
-   $response = $this->post('/login', [
-       'email' => $user->email,
-       'password' => 'password',
-   ]);
+    //passando dados falsos
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
 
-   //verificando se o usuário esta autenticado 
-   $this->assertAuthenticated();
-   
-   //criando uma sala falsa
-   $salas = Sala::create([
-       'numero'=>"15",      
-   ]);
-   
-   //Sala atualizado
-   $salaAtualizado=[
-       'numero'=>"12",      
-   ];
-   
-   //mandando a requisição
-   $response2 = $this->post('/salas/update/'.$salas->id, $salaAtualizado);
+    //verificando se o usuário esta autenticado 
+    $this->assertAuthenticated();
+    
+    //criando uma sala falsa
+    $salas = Sala::create([
+        'numero'=>"15",      
+    ]);
+    
+    //Sala atualizado
+    $salaAtualizado=[
+        'numero'=>"12",      
+    ];
+    
+    //mandando a requisição
+    $response2 = $this->post('/salas/update/'.$salas->id, $salaAtualizado);
 
-   //verificando se os dados existem no banco
-   $this->assertDatabaseHas('salas', $salaAtualizado);
+    //verificando se os dados existem no banco
+    $this->assertDatabaseHas('salas', $salaAtualizado);
 
-   //verificando se a página foi redirecionada
-   $response2->assertStatus(302);
+    //verificando se a página foi redirecionada
+    $response2->assertStatus(302);
 
-   //verificando se foi redirecionada para a página esperada
-   $response2->assertRedirect('/salas');
-}
+    //verificando se foi redirecionada para a página esperada
+    $response2->assertRedirect('/salas');
+    }
 
 //----------------------------------------------------------------------
 
@@ -229,46 +229,46 @@ public function test_AtualizarSalas() //-- OK
    
 //----------------------------------------------------------------------
 
-public function test_DeletarSalasUsuarioNaoLogado() // -- OK
-{
-    /*
-    /-------------------------------------------------------------
-    /Este teste avalia a remoção de sala com usuário não logado;
-    /-------------------------------------------------------------
-    */
+    public function test_DeletarSalasUsuarioNaoLogado() // -- OK
+    {
+        /*
+        /-------------------------------------------------------------
+        /Este teste avalia a remoção de sala com usuário não logado;
+        /-------------------------------------------------------------
+        */
 
 
-    //---------------------------------------------- Parte do teste que loga usuário
-    // //criando um usuário falso
-    // $user = User::factory()->create();
-    // //passando dados falsos
-    // $response = $this->post('/login', [
-    //     'email' => $user->email,
-    //     'password' => 'password',
-    // ]);  
-    //-----------------------------------------------------------------------------------
+        //---------------------------------------------- Parte do teste que loga usuário
+        // //criando um usuário falso
+        // $user = User::factory()->create();
+        // //passando dados falsos
+        // $response = $this->post('/login', [
+        //     'email' => $user->email,
+        //     'password' => 'password',
+        // ]);  
+        //-----------------------------------------------------------------------------------
 
 
-    //verificando se o usuário esta autenticado 
-    $this->assertAuthenticated();
-    
-    //criando uma sala falsa
-    $sala = Sala::create([
-        'numero'=>"19",      
-    ]);
-    
-    //enviando requisição
-    $response2 = $this->post('/salas/remove/'.$sala->id);
+        //verificando se o usuário esta autenticado 
+        $this->assertAuthenticated();
+        
+        //criando uma sala falsa
+        $sala = Sala::create([
+            'numero'=>"19",      
+        ]);
+        
+        //enviando requisição
+        $response2 = $this->post('/salas/remove/'.$sala->id);
 
-    //procurando esse computador no banco de dados
-    $this->assertDatabaseMissing('salas', ['id' => $sala->id]);
+        //procurando esse computador no banco de dados
+        $this->assertDatabaseMissing('salas', ['id' => $sala->id]);
 
-    //código de resposta esperado
-    $response2->assertStatus(302);
+        //código de resposta esperado
+        $response2->assertStatus(302);
 
-    //verificando se foi redirecionada para a página esperada
-    $response2->assertRedirect('/salas');
-}
+        //verificando se foi redirecionada para a página esperada
+        $response2->assertRedirect('/salas');
+    }
 
 //----------------------------------------------------------------------
 }

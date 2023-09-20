@@ -20,9 +20,15 @@ class RegistroTest extends TestCase
 
     public function test_RegistroUsuario()
     {
-        // tentando realizar registro
+         /*
+        /-------------------------------------------------------------
+        /Este teste avalia a validação dos campos de registro de usuários;
+        /-------------------------------------------------------------
+        */
+
+        //mandando a requisição com os dados corretos
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            // 'name' => 'Test User',
             'matricula' => '123123123',
             'cpf' => '123123123',
             'telefone' => '123123123',
@@ -32,7 +38,12 @@ class RegistroTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
-        $this->assertAuthenticated();
+        $response->assertSessionHasErrors(['name','matricula','cpf','telefone','nascimento','email','password','password_confirmation']);
+
+        //verificando se o código da requisição é o código que estamos esperando receber
+        $response->assertStatus(302);
+
+        //verificando se esta redirecionando para a página esperada
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 }
