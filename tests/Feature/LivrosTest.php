@@ -46,11 +46,11 @@ class LivrosTest extends TestCase
 
 // ----------------------------------------------------------------------
 
-    public function test_RegistroDeLivro() //-- OK
+    public function test_RegistroDeLivroUsuarioLogado() //-- OK
     {
         /*
         /-------------------------------------------------------------
-        /Este teste avalia o registro de livros;
+        /Este teste avalia o registro de livros com usuário logado;
         /-------------------------------------------------------------
         */
 
@@ -87,6 +87,53 @@ class LivrosTest extends TestCase
         //código de resposta esperado
         $response2->assertStatus(302);
     }
+
+// ----------------------------------------------------------------------
+
+    public function test_RegistroDeLivroUsuarioNaoLogado() //-- OK
+    {
+        /*
+        /-------------------------------------------------------------
+        /Este teste avalia o registro de livros com usuário não logado;
+        /-------------------------------------------------------------
+        */
+
+
+        //---------------------------------------------- Parte do teste que loga usuário
+        // //criando um usuário falso
+        // $user = User::factory()->create();
+        // //passando dados falsos
+        // $response1 = $this->post('/login', [
+        //     'email' => $user->email,
+        //     'password' => 'password',
+        // ]);
+        //-----------------------------------------------------------------------------------
+
+
+        //verificando se o usuário esta aunteticado
+        $this->assertAuthenticated();
+
+        //dados simulados
+        $data = [
+            'autor'=>"Teste",
+            'publicacao'=>"Teste",
+            'nome'=>"Teste",
+            'genero'=>"Teste",
+            'categoria'=>"Teste"        
+        ];
+        
+        //acessando a rota de adicionar livros no banco
+        $response2 = $this->post('/livros/create',$data); 
+
+        //verificando se os dados foram inseridos
+        $this->assertDatabaseHas('livros', $data);
+
+        //rota esperada após a inserção no banco
+        $response2->assertRedirect('/livros');
+        
+        //código de resposta esperado
+        $response2->assertStatus(302);
+}
 
 // ----------------------------------------------------------------------
 

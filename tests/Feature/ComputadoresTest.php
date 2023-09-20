@@ -143,50 +143,98 @@ class ComputadoresTest extends TestCase
 
 // ----------------------------------------------------------------------
 
-public function test_AtualizarComputador() //-- OK
-{
-    /*
-    /-------------------------------------------------------------
-    /Este teste avalia a atualização de computadores;
-    /-------------------------------------------------------------
-    */
+    public function test_AtualizarComputadorUsuarioNaoLogado() //-- OK
+    {
+        /*
+        /-------------------------------------------------------------
+        /Este teste avalia a atualização de computadores com usuário não logado;
+        /-------------------------------------------------------------
+        */
 
-    //criando um usuário falso
-    $user = User::factory()->create();
 
-    //passando dados falsos
-    $response = $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'password',
-    ]);
+         //---------------------------------------------- Parte do teste que loga usuário
+        // //criando um usuário falso
+        // $user = User::factory()->create();
+        // //passando dados falsos
+        // $response = $this->post('/login', [
+        //     'email' => $user->email,
+        //     'password' => 'password',
+        // ]);
+        //-----------------------------------------------------------------------------------
 
-    //verificando se o usuário esta autenticado 
-    $this->assertAuthenticated();
-    
-    //criando livro falso
-    $comp = Computadore::create([
-        'identificacao_comp'=>"12",      
-    ]);
-    
-    //Computador atualizado
-    $compAtualizado=[
-        'identificacao_comp'=>"12",      
-    ];
-    
-    //mandando a requisição
-    $response2 = $this->post('/computador/update/'.$comp->id, $compAtualizado);
 
-    //verificando se os dados existem no banco
-    $this->assertDatabaseHas('computadores', $compAtualizado);
+        //verificando se o usuário esta autenticado 
+        $this->assertAuthenticated();
+        
+        //criando livro falso
+        $comp = Computadore::create([
+            'identificacao_comp'=>"12",      
+        ]);
+        
+        //Computador atualizado
+        $compAtualizado=[
+            'identificacao_comp'=>"12",      
+        ];
+        
+        //mandando a requisição
+        $response2 = $this->post('/computador/update/'.$comp->id, $compAtualizado);
 
-    //verificando se a página foi redirecionada
-    $response2->assertStatus(302);
+        //verificando se os dados existem no banco
+        $this->assertDatabaseHas('computadores', $compAtualizado);
 
-    //verificando se foi redirecionada para a página esperada
-    $response2->assertRedirect('/computadores');
-}
+        //verificando se a página foi redirecionada
+        $response2->assertStatus(302);
 
-//----------------------------------------------------------------------
+        //verificando se foi redirecionada para a página esperada
+        $response2->assertRedirect('/computadores');
+    }
+
+// ----------------------------------------------------------------------
+
+    public function test_AtualizarComputadorUsuarioLogado() //-- OK
+    {
+        /*
+        /-------------------------------------------------------------
+        /Este teste avalia a atualização de computadores com usuário logado;
+        /-------------------------------------------------------------
+        */
+
+        //criando um usuário falso
+        $user = User::factory()->create();
+
+        //passando dados falsos
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        //verificando se o usuário esta autenticado 
+        $this->assertAuthenticated();
+        
+        //criando livro falso
+        $comp = Computadore::create([
+            'identificacao_comp'=>"12",      
+        ]);
+        
+        //Computador atualizado
+        $compAtualizado=[
+            'identificacao_comp'=>"12",      
+        ];
+        
+        //mandando a requisição
+        $response2 = $this->post('/computador/update/'.$comp->id, $compAtualizado);
+
+        //verificando se os dados existem no banco
+        $this->assertDatabaseHas('computadores', $compAtualizado);
+
+        //verificando se a página foi redirecionada
+        $response2->assertStatus(302);
+
+        //verificando se foi redirecionada para a página esperada
+        $response2->assertRedirect('/computadores');
+    }
+
+    //----------------------------------------------------------------------
 
     public function test_DeletarComputador() // -- OK
     {
